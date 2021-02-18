@@ -257,6 +257,8 @@ set(SRCS
 
 add_executable(audiowaveform ${SRCS})
 
+add_executable(stdiotest src/StdioTest.cpp)
+
 #-------------------------------------------------------------------------------
 #
 # Linker
