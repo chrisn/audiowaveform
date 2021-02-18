@@ -53,4 +53,6 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: ./stdiotest
+      run: |
+        ./stdiotest
+        hexdump -C stderr.txt
