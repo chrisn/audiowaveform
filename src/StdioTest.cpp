@@ -1,9 +1,17 @@
-#include <stdlib.h>
+#include <iostream>
+#include <sstream>
+#include <string>
 
-int main(int argc, char** argv)
+std::ostringstream error_stream;
+
+int main(int /* argc */, char** /* argv */)
 {
-    const char* command = "./audiowaveform -i ../test/data/test_file_stereo.mp3 -o temp.json -b 8 1>stdout.txt 2>stderr.txt";
-    system(command);
+    const std::string message = "Test 1\rTest 2\rTest 3\r\n";
+    error_stream << "Test 1\rTest 2\rTest 3\r\n";
+    bool same = error_stream.str() == message;
+
+    std::cout << message << '\n';
+    std::cout << same << '\n';
 
     return 0;
 }

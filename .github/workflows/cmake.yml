@@ -54,5 +54,4 @@ jobs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       run: |
-        ./audiowaveform -i ../test/data/test_file_stereo.mp3 -o temp.json -b 8 1>stdout.txt 2>stderr.txt
-        hexdump -C stderr.txt
+        ./stdiotest
