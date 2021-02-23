@@ -76,7 +76,7 @@ void ProgressReporter::update(long long done, long long total)
     if (percent != percent_) {
         percent_ = percent;
 
-        error_stream << "\rDone: " << percent << "%" << std::flush;
+        error_stream << "\rDone: " << percent << "%"; // << std::flush;
     }
 }
 
