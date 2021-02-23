@@ -35,7 +35,7 @@
 //------------------------------------------------------------------------------
 
 // TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
-void Test()
+bool Test()
 {
     ProgressReporter progress_reporter;
 
@@ -45,11 +45,12 @@ void Test()
     std::cout << "equal: " << equal << '\n';
 
     // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
+    return equal;
 }
 
 int main()
 {
-    Test();
+    return Test() ? 1 : 0;
 }
 
 //------------------------------------------------------------------------------
