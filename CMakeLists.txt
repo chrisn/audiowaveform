@@ -258,6 +258,7 @@ set(SRCS
 add_executable(audiowaveform ${SRCS})
 
 add_executable(stdiotest src/StdioTest.cpp)
+target_link_libraries(stdiotest gmock_main)
 
 #-------------------------------------------------------------------------------
 #
