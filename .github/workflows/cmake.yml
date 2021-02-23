@@ -55,4 +55,5 @@ jobs:
       shell: bash
       run: |
         ./stdiotest
+        ldd ./audiowaveform_tests
         ./audiowaveform_tests
