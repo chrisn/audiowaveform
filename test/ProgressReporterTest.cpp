@@ -24,15 +24,18 @@
 #include "ProgressReporter.h"
 #include "util/Streams.h"
 
-#include "gmock/gmock.h"
+// #include "gmock/gmock.h"
+
+#include <iostream>
 
 //------------------------------------------------------------------------------
 
-using testing::StrEq;
+// using testing::StrEq;
 
 //------------------------------------------------------------------------------
 
-TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
+// TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
+void Test()
 {
     ProgressReporter progress_reporter;
 
@@ -41,7 +44,12 @@ TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
     const bool equal = error.str() == std::string("\rDone: 0%");
     std::cout << "equal: " << equal << '\n';
 
-    ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
+    // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
+}
+
+int main()
+{
+    Test();
 }
 
 //------------------------------------------------------------------------------
