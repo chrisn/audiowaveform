@@ -25,38 +25,18 @@
 #include "util/Streams.h"
 
 #include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
-#include <sstream>
 
 //------------------------------------------------------------------------------
 
 using testing::StrEq;
-using testing::Test;
 
 //------------------------------------------------------------------------------
 
-class ProgressReporterTest : public Test
+TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
 {
-    protected:
-        virtual void SetUp()
-        {
-            error.str(std::string());
-        }
+    ProgressReporter progress_reporter;
 
-        virtual void TearDown()
-        {
-        }
-
-    protected:
-        ProgressReporter progress_reporter_;
-};
-
-//------------------------------------------------------------------------------
-
-TEST_F(ProgressReporterTest, shouldDisplayZeroPercentWhenFirstCalled)
-{
-    progress_reporter_.update(0, 100);
+    progress_reporter.update(0, 100);
 
     ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
 }
