@@ -38,6 +38,9 @@ TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
 
     progress_reporter.update(0, 100);
 
+    const bool equal = error.str() == std::string("\rDone: 0%");
+    std::cout << "equal: " << equal << '\n';
+
     ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
 }
 
