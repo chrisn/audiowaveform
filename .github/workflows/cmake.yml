@@ -55,3 +55,4 @@ jobs:
       shell: bash
       run: |
         ./stdiotest
+        ./audiowaveform_tests

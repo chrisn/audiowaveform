@@ -21,9 +21,9 @@
 //
 //------------------------------------------------------------------------------
 
-#include "Config.h"
-#include "Options.h"
-#include "OptionHandler.h"
+// #include "Config.h"
+// #include "Options.h"
+// #include "OptionHandler.h"
 
 #include <iostream>
 #include <limits>
@@ -41,6 +41,7 @@ std::ostream& error_stream  = std::cerr;
 
 int main(int argc, const char* const* argv)
 {
+/*
     Options options;
 
     if (!options.parseCommandLine(argc, argv)) {
@@ -52,6 +53,7 @@ int main(int argc, const char* const* argv)
     bool success = option_handler.run(options);
 
     return success ? 0 : 1;
+*/
 }
 
 //------------------------------------------------------------------------------
