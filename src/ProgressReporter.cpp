@@ -40,7 +40,19 @@ ProgressReporter::ProgressReporter() :
 
     struct stat stat_buf;
 
-    // int result = fstat(fileno(stdin), &stat_buf);
+    int result = fstat(fileno(stdin), &stat_buf);
+
+    error_stream << "\nstat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
+                 << "stat_buf.st_ino: " << stat_buf.st_ino << '\n'
+                 << "stat_buf.st_mode: " << stat_buf.st_mode << '\n'
+                 << "stat_buf.st_nlink: " << stat_buf.st_nlink << '\n'
+                 << "stat_buf.st_uid: " << stat_buf.st_uid << '\n'
+                 << "stat_buf.st_gid: " << stat_buf.st_gid << '\n'
+                 << "stat_buf.st_rdev: " << stat_buf.st_rdev << '\n'
+                 << "stat_buf.st_size: " << stat_buf.st_size << '\n'
+                 << "stat_buf.st_blksize: " << stat_buf.st_blksize << '\n'
+                 << "stat_buf.st_blocks: " << stat_buf.st_blocks << '\n';
+
 
     // if (result >= 0) {
     //     if (S_ISFIFO(stat_buf.st_mode)) {
@@ -76,7 +88,7 @@ void ProgressReporter::update(long long done, long long total)
     if (percent != percent_) {
         percent_ = percent;
 
-        error_stream << "Done: " << percent << "%" << std::flush;
+        error_stream << "\rDone: " << percent << "%" << std::flush;
     }
 }
 
