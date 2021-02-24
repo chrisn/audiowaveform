@@ -63,7 +63,7 @@ bool Test()
     std::cout << typeid(error).name() << '\n';
     std::cout << typeid(error_stream).name() << '\n';
 
-    const char* expected = "\rDone: 0%";
+    const char* expected = "Done: 0%";
     std::string actual = error.str();
 
     bool equal = actual == std::string(expected);
@@ -76,11 +76,11 @@ bool Test()
     std::ostringstream s;
     s << test_string;
     actual = s.str();
-    equal = actual == std::string(test_string);
+    bool equal2 = actual == std::string(test_string);
 
     std::cout << "actual: " << transform(actual) << '\n';
     std::cout << "expected: " << transform(test_string) << '\n';
-    std::cout << "equal: " << equal << '\n';
+    std::cout << "equal: " << equal2 << '\n';
 
     // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
     return equal;
