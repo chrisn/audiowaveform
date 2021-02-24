@@ -56,6 +56,9 @@ bool Test()
     std::cout << typeid(error).name() << '\n';
     std::cout << typeid(error_stream).name() << '\n';
 
+    std::cout << &error << '\n';
+    std::cout << &error_stream << '\n';
+
     const char* expected = "\rDone: 0%";
     std::string actual = error.str();
 
