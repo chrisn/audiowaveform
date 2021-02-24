@@ -42,7 +42,8 @@ ProgressReporter::ProgressReporter() :
 
     int result = fstat(fileno(stdin), &stat_buf);
 
-    error_stream << "\nstat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
+    error_stream << "\nfstat result: " << result << '\n'
+                 << "stat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
                  << "stat_buf.st_ino: " << stat_buf.st_ino << '\n'
                  << "stat_buf.st_mode: " << stat_buf.st_mode << '\n'
                  << "stat_buf.st_nlink: " << stat_buf.st_nlink << '\n'
