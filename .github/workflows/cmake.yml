@@ -57,3 +57,4 @@ jobs:
         ./stdiotest
         ldd ./audiowaveform_tests
         ./audiowaveform_tests
+        ./ioredirect_test

@@ -225,29 +225,7 @@ configure_file(
 include_directories("${PROJECT_BINARY_DIR}")
 
 set(MODULES
-    # src/AudioFileReader.cpp
-    # src/AudioProcessor.cpp
-    # src/BStdFile.cpp
-    # src/DurationCalculator.cpp
-    # src/Error.cpp
-    # src/FileFormat.cpp
-    # src/FileUtil.cpp
-    # src/GdImageRenderer.cpp
-    # src/MathUtil.cpp
-    # src/Mp3AudioFileReader.cpp
-    # src/Options.cpp
-    # src/OptionHandler.cpp
     src/ProgressReporter.cpp
-    # src/Rgba.cpp
-    # src/SndFileAudioFileReader.cpp
-    # src/TimeUtil.cpp
-    # src/WaveformBuffer.cpp
-    # src/WaveformColors.cpp
-    # src/WaveformGenerator.cpp
-    # src/WaveformRescaler.cpp
-    # src/WaveformUtil.cpp
-    # src/WavFileWriter.cpp
-    # src/madlld-1.1p1/bstdfile.c
 )
 
 set(SRCS
@@ -284,46 +262,16 @@ target_link_libraries(audiowaveform ${LIBS})
 #
 #-------------------------------------------------------------------------------
 
-if (NOT DEFINED ENABLE_TESTS)
-    set(ENABLE_TESTS 1)
-endif()
+add_subdirectory(googlemock EXCLUDE_FROM_ALL)
 
-if(ENABLE_TESTS)
-    enable_testing()
+set(TESTS
+    test/ProgressReporterTest.cpp
+    test/util/Streams.cpp
+)
 
-    # Use EXCLUDE_FROM_ALL to prevent installing googletest headers as part of
-    # 'make install'.
-    add_subdirectory(googlemock EXCLUDE_FROM_ALL)
+add_executable(audiowaveform_tests ${MODULES} ${TESTS})
 
-    set(TESTS
-        # test/FileFormatTest.cpp
-        # test/FileUtilTest.cpp
-        # test/GdImageRendererTest.cpp
-        # test/MathUtilTest.cpp
-        # test/Mp3AudioFileReaderTest.cpp
-        # test/OptionsTest.cpp
-        # test/OptionHandlerTest.cpp
-        test/ProgressReporterTest.cpp
-        # test/RgbaTest.cpp
-        # test/SndFileAudioFileReaderTest.cpp
-        # test/TimeUtilTest.cpp
-        # test/WavFileWriterTest.cpp
-        # test/WaveformBufferTest.cpp
-        # test/WaveformGeneratorTest.cpp
-        # test/WaveformRescalerTest.cpp
-        # test/util/FileDeleter.cpp
-        # test/util/FileUtil.cpp
-        test/util/Streams.cpp
-    )
-
-    include_directories(${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include)
-    set(TEST_LIBS gmock_main)
-    add_executable(audiowaveform_tests ${MODULES} ${TESTS})
-    # target_link_libraries(audiowaveform_tests ${LIBS} ${TEST_LIBS})
-    add_test(audiowaveform_tests audiowaveform_tests)
-else()
-    message(STATUS "Unit tests disabled")
-endif()
+add_executable(ioredirect_test src/IoRedirectTest.cpp)
 
 #-------------------------------------------------------------------------------
 #

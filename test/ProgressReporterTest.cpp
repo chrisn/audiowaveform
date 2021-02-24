@@ -25,13 +25,7 @@
 #include "Streams.h"
 #include "util/Streams.h"
 
-// #include "gmock/gmock.h"
-
 #include <iostream>
-
-//------------------------------------------------------------------------------
-
-// using testing::StrEq;
 
 //------------------------------------------------------------------------------
 
@@ -53,7 +47,6 @@ std::string transform(const std::string& input)
 
 //------------------------------------------------------------------------------
 
-// TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
 bool Test()
 {
     ProgressReporter progress_reporter;
@@ -82,7 +75,6 @@ bool Test()
     std::cout << "expected: " << transform(test_string) << '\n';
     std::cout << "equal: " << equal2 << '\n';
 
-    // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
     return equal;
 }
 
