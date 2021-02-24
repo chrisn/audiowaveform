@@ -76,11 +76,11 @@ bool Test()
     std::ostringstream s;
     s << test_string;
     actual = s.str();
+    equal = actual == std::string(test_string);
 
     std::cout << "actual: " << transform(actual) << '\n';
     std::cout << "expected: " << transform(test_string) << '\n';
     std::cout << "equal: " << equal << '\n';
-
 
     // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
     return equal;
