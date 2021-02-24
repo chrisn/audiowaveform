@@ -56,7 +56,7 @@ bool Test()
     std::cout << typeid(error).name() << '\n';
     std::cout << typeid(error_stream).name() << '\n';
 
-    const char* expected = "Done: 0%";
+    const char* expected = "\rDone: 0%";
     std::string actual = error.str();
 
     bool equal = actual == std::string(expected);
@@ -80,6 +80,8 @@ bool Test()
 
 int main()
 {
+    error_stream.unsetf(std::ios::skipws);
+
     return Test() ? 0 : 1;
 }
 
