@@ -42,19 +42,18 @@ ProgressReporter::ProgressReporter() :
 
     int result = fstat(fileno(stdin), &stat_buf);
 
-    error_stream << "\nfstat result: " << result << '\n'
-                 << "stat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
-                 << "stat_buf.st_ino: " << stat_buf.st_ino << '\n'
-                 << "stat_buf.st_mode: " << stat_buf.st_mode << '\n'
-                 << "stat_buf.st_nlink: " << stat_buf.st_nlink << '\n'
-                 << "stat_buf.st_uid: " << stat_buf.st_uid << '\n'
-                 << "stat_buf.st_gid: " << stat_buf.st_gid << '\n'
-                 << "stat_buf.st_rdev: " << stat_buf.st_rdev << '\n'
-                 << "stat_buf.st_size: " << stat_buf.st_size << '\n'
-                 << "stat_buf.st_blksize: " << stat_buf.st_blksize << '\n'
-                 << "stat_buf.st_blocks: " << stat_buf.st_blocks << '\n'
-                 << "S_ISFIFO: " << S_ISFIFO(stat_buf.st_mode) << '\n';
-
+    // error_stream << "\nfstat result: " << result << '\n'
+    //              << "stat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
+    //              << "stat_buf.st_ino: " << stat_buf.st_ino << '\n'
+    //              << "stat_buf.st_mode: " << stat_buf.st_mode << '\n'
+    //              << "stat_buf.st_nlink: " << stat_buf.st_nlink << '\n'
+    //              << "stat_buf.st_uid: " << stat_buf.st_uid << '\n'
+    //              << "stat_buf.st_gid: " << stat_buf.st_gid << '\n'
+    //              << "stat_buf.st_rdev: " << stat_buf.st_rdev << '\n'
+    //              << "stat_buf.st_size: " << stat_buf.st_size << '\n'
+    //              << "stat_buf.st_blksize: " << stat_buf.st_blksize << '\n'
+    //              << "stat_buf.st_blocks: " << stat_buf.st_blocks << '\n'
+    //              << "S_ISFIFO: " << S_ISFIFO(stat_buf.st_mode) << '\n';
 
     // if (result >= 0) {
     //     if (S_ISFIFO(stat_buf.st_mode)) {
