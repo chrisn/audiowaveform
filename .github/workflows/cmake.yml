@@ -54,7 +54,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       run: |
+        ./ioredirect_test
         ./stdiotest
         ldd ./audiowaveform_tests
         ./audiowaveform_tests
-        ./ioredirect_test
