@@ -6,18 +6,19 @@
 
 using testing::StrEq;
 
-std::ostringstream error_stream;
+std::ostringstream error;
+std::ostream& error_stream = error;
 
 TEST(Test, test)
 {
     const char* message = "Test 1\rTest 2\rTest 3\r\n";
     error_stream << "Test 1\rTest 2\rTest 3\r\n";
-    bool same = error_stream.str() == std::string(message);
+    bool same = error.str() == std::string(message);
 
     std::cout << message << '\n';
     std::cout << same << '\n';
 
-    ASSERT_THAT(error_stream.str(), StrEq(message));
+    ASSERT_THAT(error.str(), StrEq(message));
 }
 
 #if 0
