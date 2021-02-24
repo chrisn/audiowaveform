@@ -22,65 +22,134 @@
 //------------------------------------------------------------------------------
 
 #include "ProgressReporter.h"
-#include "Streams.h"
 #include "util/Streams.h"
 
-#include <iostream>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
+
+#include <sstream>
 
 //------------------------------------------------------------------------------
 
-std::string transform(const std::string& input)
+using testing::StrEq;
+using testing::Test;
+
+//------------------------------------------------------------------------------
+
+class ProgressReporterTest : public Test
 {
-    std::string output;
-
-    for (std::size_t i = 0; i < input.size(); i++) {
-        if (input[i] == '\r') {
-            output += "\\r";
+    protected:
+        virtual void SetUp()
+        {
+            error.str(std::string());
         }
-        else {
-            output += input[i];
-        }
-    }
 
-    return output;
+        virtual void TearDown()
+        {
+        }
+
+    protected:
+        ProgressReporter progress_reporter_;
+};
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldDisplayZeroPercentWhenFirstCalled)
+{
+    progress_reporter_.update(0, 100);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
 }
 
 //------------------------------------------------------------------------------
 
-bool Test()
+TEST_F(ProgressReporterTest, shouldUpdatePercentage)
 {
-    ProgressReporter progress_reporter;
+    progress_reporter_.update(0, 100);
+    progress_reporter_.update(50, 100);
+    progress_reporter_.update(100, 100);
 
-    progress_reporter.update(0, 100);
-
-    std::cout << typeid(error).name() << '\n';
-    std::cout << typeid(error_stream).name() << '\n';
-
-    const char* expected = "Done: 0%";
-    std::string actual = error.str();
-
-    bool equal = actual == std::string(expected);
-
-    std::cout << "actual: " << transform(actual) << '\n';
-    std::cout << "expected: " << transform(expected) << '\n';
-    std::cout << "equal: " << equal << '\n';
-
-    const char* test_string = "Test\rTest 2";
-    std::ostringstream s;
-    s << test_string;
-    actual = s.str();
-    bool equal2 = actual == std::string(test_string);
-
-    std::cout << "actual: " << transform(actual) << '\n';
-    std::cout << "expected: " << transform(test_string) << '\n';
-    std::cout << "equal: " << equal2 << '\n';
-
-    return equal;
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%\rDone: 50%\rDone: 100%"));
 }
 
-int main()
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldNotUpdatePercentageIfUnchanged)
 {
-    return Test() ? 0 : 1;
+    progress_reporter_.update(0, 100);
+    progress_reporter_.update(50, 100);
+    progress_reporter_.update(50, 100);
+    progress_reporter_.update(100, 100);
+
+    ASSERT_TRUE(output.str().empty());
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%\rDone: 50%\rDone: 100%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldAllowPercentageToDecrease)
+{
+    progress_reporter_.update(0, 100);
+    progress_reporter_.update(50, 100);
+    progress_reporter_.update(25, 100);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%\rDone: 50%\rDone: 25%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldLimitPercentageAt0)
+{
+    progress_reporter_.update(-100, 100);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldLimitPercentageAt100)
+{
+    progress_reporter_.update(200, 100);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 100%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldNotAssumeTotalIs100)
+{
+    progress_reporter_.update(0, 1000);
+    progress_reporter_.update(50, 1000);
+    progress_reporter_.update(100, 1000);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%\rDone: 5%\rDone: 10%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldDisplayPercentageAsWholeNumber)
+{
+    progress_reporter_.update(50, 101);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 49%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldDisplayZeroIfTotalIsZero)
+{
+    progress_reporter_.update(50, 0);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
+}
+
+//------------------------------------------------------------------------------
+
+TEST_F(ProgressReporterTest, shouldAllowLargeNumbers)
+{
+    progress_reporter_.update(5000000000LL, 10000000000LL);
+
+    ASSERT_THAT(error.str(), StrEq("\rDone: 50%"));
 }
 
 //------------------------------------------------------------------------------

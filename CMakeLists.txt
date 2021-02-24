@@ -317,8 +317,8 @@ target_link_libraries(audiowaveform_tests ${LIBS} ${TEST_LIBS})
 
 target_link_libraries(stdio_test ${TEST_LIBS})
 
-add_executable(progressreporter_test src/ProgressReporter.cpp test/ProgressReporterTest.cpp test/util/Streams.cpp)
-target_link_libraries(progressreporter_test ${TEST_LIBS})
+add_executable(progressreporter_test src/ProgressReporter.cpp test/ProgressReporterTest2.cpp test/util/Streams.cpp)
+target_link_libraries(progressreporter_test)
 
 #-------------------------------------------------------------------------------
 #

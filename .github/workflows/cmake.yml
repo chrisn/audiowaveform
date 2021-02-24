@@ -53,13 +53,22 @@ jobs:
     - name: IoRedirectTest
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: ./ioredirect_test
+      run: |
+        ./ioredirect_test
+        hexdump -C stderr.txt
+        diff stderr.txt ../expected_output.txt
       continue-on-error: true
 
     - name: StdioTest
       working-directory: ${{github.workspace}}/build
       shell: bash
       run: ./stdio_test
+      continue-on-error: true
+
+    - name: ProgressReporterTest
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: ./progressreporter_test
       continue-on-error: true
 
     - name: AudiowaveformTests
