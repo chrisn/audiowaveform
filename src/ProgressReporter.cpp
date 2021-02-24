@@ -52,7 +52,8 @@ ProgressReporter::ProgressReporter() :
                  << "stat_buf.st_rdev: " << stat_buf.st_rdev << '\n'
                  << "stat_buf.st_size: " << stat_buf.st_size << '\n'
                  << "stat_buf.st_blksize: " << stat_buf.st_blksize << '\n'
-                 << "stat_buf.st_blocks: " << stat_buf.st_blocks << '\n';
+                 << "stat_buf.st_blocks: " << stat_buf.st_blocks << '\n'
+                 << "S_ISFIFO: " << S_ISFIFO(stat_buf.st_mode) << '\n';
 
 
     // if (result >= 0) {
