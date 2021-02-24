@@ -34,6 +34,24 @@
 
 //------------------------------------------------------------------------------
 
+std::string transform(const std::string& input)
+{
+    std::string output;
+
+    for (std::size_t i = 0; i < input.size(); i++) {
+        if (input[i] == '\r') {
+            output += "\\r";
+        }
+        else {
+            output += input[i];
+        }
+    }
+
+    return output;
+}
+
+//------------------------------------------------------------------------------
+
 // TEST(ProgressReporter, shouldDisplayZeroPercentWhenFirstCalled)
 bool Test()
 {
@@ -41,7 +59,13 @@ bool Test()
 
     progress_reporter.update(0, 100);
 
-    const bool equal = error.str() == std::string("\rDone: 0%");
+    const char* expected = "\rDone: 0%";
+    const std::string actual = error.str();
+
+    const bool equal = actual == std::string(expected);
+
+    std::cout << "actual: " << transform(actual) << '\n';
+    std::cout << "expected: " << transform(expected) << '\n';
     std::cout << "equal: " << equal << '\n';
 
     // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
