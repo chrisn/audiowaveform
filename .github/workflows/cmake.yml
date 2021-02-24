@@ -50,11 +50,20 @@ jobs:
       # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
 
-    - name: Test
+    - name: IoRedirectTest
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: |
-        ./ioredirect_test
-        ./stdiotest
-        ldd ./audiowaveform_tests
-        ./audiowaveform_tests
+      run: ./ioredirect_test
+      continue-on-error: true
+
+    - name: StdioTest
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: ./stdio_test
+      continue-on-error: true
+
+    - name: AudiowaveformTests
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: ./audiowaveform_tests
+      continue-on-error: true
