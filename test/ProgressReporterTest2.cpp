@@ -61,7 +61,7 @@ bool Test()
 
     bool equal = actual == std::string(expected);
 
-    std::cout << "actual: " << transform(actual) << '\n';
+    std::cout << "actual: " << transform(actual) << " (length " << actual.size() << ")\n";
     std::cout << "expected: " << transform(expected) << '\n';
     std::cout << "equal: " << equal << '\n';
 
@@ -80,7 +80,7 @@ bool Test()
 
 int main()
 {
-    error_stream.unsetf(std::ios::skipws);
+    error.unsetf(std::ios::skipws);
 
     return Test() ? 0 : 1;
 }
