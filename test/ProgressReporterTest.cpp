@@ -60,13 +60,23 @@ bool Test()
     progress_reporter.update(0, 100);
 
     const char* expected = "\rDone: 0%";
-    const std::string actual = error.str();
+    std::string actual = error.str();
 
-    const bool equal = actual == std::string(expected);
+    bool equal = actual == std::string(expected);
 
     std::cout << "actual: " << transform(actual) << '\n';
     std::cout << "expected: " << transform(expected) << '\n';
     std::cout << "equal: " << equal << '\n';
+
+    const char* test_string = "Test\rTest 2";
+    std::ostringstream s;
+    s << test_string;
+    actual = s.str();
+
+    std::cout << "actual: " << transform(actual) << '\n';
+    std::cout << "expected: " << transform(test_string) << '\n';
+    std::cout << "equal: " << equal << '\n';
+
 
     // ASSERT_THAT(error.str(), StrEq("\rDone: 0%"));
     return equal;
