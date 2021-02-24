@@ -22,6 +22,7 @@
 //------------------------------------------------------------------------------
 
 #include "ProgressReporter.h"
+#include "Streams.h"
 #include "util/Streams.h"
 
 // #include "gmock/gmock.h"
@@ -58,6 +59,9 @@ bool Test()
     ProgressReporter progress_reporter;
 
     progress_reporter.update(0, 100);
+
+    std::cout << typeid(error).name() << '\n';
+    std::cout << typeid(error_stream).name() << '\n';
 
     const char* expected = "\rDone: 0%";
     std::string actual = error.str();
