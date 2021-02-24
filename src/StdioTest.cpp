@@ -12,7 +12,7 @@ std::ostream& error_stream = error;
 TEST(Test, test)
 {
     const char* message = "Test 1\rTest 2\rTest 3\r\n";
-    error_stream << "Test 1\rTest 2\rTest 3\r\n";
+    error_stream << message;
     bool same = error.str() == std::string(message);
 
     std::cout << message << '\n';
