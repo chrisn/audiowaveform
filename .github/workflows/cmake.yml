@@ -56,7 +56,8 @@ jobs:
       run: |
         ./ioredirect_test
         hexdump -C stderr.txt
-        diff stderr.txt ../expected_output.txt
+        hexdump -C stderr.txt > stderr_hexdump.txt
+        diff stderr_hexdump.txt ../expected_output.txt
       continue-on-error: true
 
     - name: StdioTest
