@@ -40,13 +40,13 @@ ProgressReporter::ProgressReporter() :
 
     struct stat stat_buf;
 
-    int result = fstat(fileno(stdin), &stat_buf);
+    // int result = fstat(fileno(stdin), &stat_buf);
 
-    if (result >= 0) {
-        if (S_ISFIFO(stat_buf.st_mode)) {
-            show_progress_ = false;
-        }
-    }
+    // if (result >= 0) {
+    //     if (S_ISFIFO(stat_buf.st_mode)) {
+    //         show_progress_ = false;
+    //     }
+    // }
 }
 
 //------------------------------------------------------------------------------
