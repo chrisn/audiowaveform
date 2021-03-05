@@ -25,6 +25,8 @@
 #include "Streams.h"
 
 #include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include <iomanip>
 #include <iostream>
@@ -40,7 +42,16 @@ ProgressReporter::ProgressReporter() :
 
     struct stat stat_buf;
 
-    int result = fstat(fileno(stdin), &stat_buf);
+    const int stdin_fileno = fileno(stdin);
+
+    int result = fcntl(stdin_fileno, F_GETFD);
+    int err = errno;
+
+    error_stream << "fcntl result: " << result << ", errno: " << err << '\n';
+
+    result = fstat(stdin_fileno, &stat_buf);
+
+    error_stream << "fstat result: " << result << ", stat_buf.st_mode: " << std::hex << stat_buf.st_mode << '\n';
 
     // error_stream << "\nfstat result: " << result << '\n'
     //              << "stat_buf.st_dev: " << std::hex << stat_buf.st_dev << '\n'
